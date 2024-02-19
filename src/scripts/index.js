@@ -7,7 +7,8 @@ const placesList = document.querySelector('.places__list');
 
 // профайл едит
 document.querySelector('.profile__edit-button').addEventListener('click', function(){
-  
+  const editPopup = document.querySelector('.popup_type_edit');
+  editPopup.classList.add('popup_is-opened');
 })
 
 // @todo: Функция создания карточки
