@@ -1,7 +1,14 @@
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы
-const placesList = document.querySelector('.places__list')
+const placesList = document.querySelector('.places__list');
+
+
+
+// профайл едит
+document.querySelector('.profile__edit-button').addEventListener('click', function(){
+  
+})
 
 // @todo: Функция создания карточки
 function createCard(cardData,deleteCard){
@@ -32,3 +39,26 @@ function renderCards(cardsArray, deleteCard) {
 }
 
 renderCards(initialCards, deleteCard);
+
+
+// const formElement = document.querySelector('.popup__form');
+
+// const nameInput = formElement.querySelector('.popup__input_type_name');
+// const jobInput = formElement.querySelector('.popup__input_type_description');
+
+// function handleFormSubmit(evt) {
+//   evt.preventDefault();
+//   const nameValue = nameInput.value;
+//   const jobValue = jobInput.value;
+
+//   // Выберите элементы, куда должны быть вставлены значения полей (например, элементы для вывода значений)
+//   const nameOutputElement = document.querySelector('.output__name');
+//   const jobOutputElement = document.querySelector('.output__job');
+
+//   // Вставьте новые значения с помощью textContent
+//   nameOutputElement.textContent = nameValue;
+//   jobOutputElement.textContent = jobValue;
+// }
+
+
+// formElement.addEventListener('submit', handleFormSubmit);
