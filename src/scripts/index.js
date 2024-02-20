@@ -8,8 +8,8 @@ const placesList = document.querySelector('.places__list');
 
 
 // Общая функция для открытия попапа
-function openPopup() {
-  const popup = document.querySelector('.popup');
+function openPopup(popupSelector) {
+  const popup = document.querySelector(popupSelector);
   popup.classList.add('popup_is-opened');
 
   // Обработчик закрытия при клике на крестик
