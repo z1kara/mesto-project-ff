@@ -6,7 +6,6 @@ import { initialCards } from "./cards";
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
 
-
 // Общая функция для открытия попапа
 function openPopup(popupSelector) {
   const popup = document.querySelector(popupSelector);
@@ -43,10 +42,27 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopup);
 }
 
-//вызов попапов
-document.querySelector('.profile__edit-button').addEventListener('click', function(){
+//edit profile 
+function openEditProfilePopup() {
+  // Получите значения полей из соответствующих элементов на странице
+  const editProfilePopup = document.querySelector('.popup_type_edit');
+  const nameInput = editProfilePopup.querySelector('.popup__input_type_name');
+  const jobInput = editProfilePopup.querySelector('.popup__input_type_description');
+
+  const currentName = document.querySelector('.profile__title').textContent;
+  const currentDescription = document.querySelector('.profile__description').textContent;
+
+  // Заполните поля в попапе текущими значениями
+  nameInput.value = currentName;
+  jobInput.value = currentDescription;
+
   openPopup('.popup_type_edit');
-});
+}
+
+
+
+//вызов попапов
+document.querySelector('.profile__edit-button').addEventListener('click', openEditProfilePopup);
 
 document.querySelector('.profile__add-button').addEventListener('click', function(){
   openPopup('.popup_type_new-card');
