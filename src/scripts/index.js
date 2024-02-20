@@ -7,42 +7,50 @@ import { initialCards } from "./cards";
 const placesList = document.querySelector('.places__list');
 
 
-// профайл едит
-document.querySelector('.profile__edit-button').addEventListener('click', function(){
-  const editPopup = document.querySelector('.popup_type_edit');
-  editPopup.classList.add('popup_is-opened');
+// Общая функция для открытия попапа
+function openPopup() {
+  const popup = document.querySelector('.popup');
+  popup.classList.add('popup_is-opened');
 
-
-  // закрытие
-  const closeButton = editPopup.querySelector('.popup__close');
+  // Обработчик закрытия при клике на крестик
+  const closeButton = popup.querySelector('.popup__close');
   closeButton.addEventListener('click', function() {
-    closePopup();
+    closePopup(popup);
   });
 
-  // закрытие кликом на фон
-  editPopup.addEventListener('click', function(event) {
-    // Проверяем, что клик произошел вне формы попапа
-    if (event.target === editPopup) {
-      closePopup();
+  // Обработчик закрытия кликом на фон
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      closePopup(popup);
     }
   });
 
-  // закрытие при нажатии клавиши Esc
+  // Обработчик закрытия при нажатии клавиши Esc
   document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-      closePopup();
+      closePopup(popup);
     }
   });
-
-  function closePopup() {
-    editPopup.classList.remove('popup_is-opened');
-    closeButton.removeEventListener('click', closePopup);
-    editPopup.removeEventListener('click', closePopup);
-    document.removeEventListener('keydown', closePopup);
-  }
-})
+}
 
 
+// Общая функция для закрытия попапа
+function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
+  const closeButton = popup.querySelector('.popup__close');
+  closeButton.removeEventListener('click', closePopup);
+  popup.removeEventListener('click', closePopup);
+  document.removeEventListener('keydown', closePopup);
+}
+
+
+document.querySelector('.profile__edit-button').addEventListener('click', function(){
+  openPopup('.popup_type_edit');
+});
+
+document.querySelector('.profile__add-button').addEventListener('click', function(){
+  openPopup('.popup_type_new-card');
+});
 
 // const overlay = document.querySelector('popup_is-opened');
 // overlay.addEventListener('click', function(event) {
