@@ -5,9 +5,9 @@ import { initialCards } from "./cards";
 
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
-const editProfilePopup = document.querySelector('.popup_type_edit');
-const nameInput = editProfilePopup.querySelector('.popup__input_type_name');
-const jobInput = editProfilePopup.querySelector('.popup__input_type_description');
+const formElement  = document.querySelector('.popup_type_edit .popup__form');
+const nameInput = formElement.querySelector('.popup__input_type_name');
+const jobInput = formElement.querySelector('.popup__input_type_description');
 
 // Общая функция для открытия попапа
 function openPopup(popupSelector) {
@@ -64,12 +64,39 @@ function openEditProfilePopup() {
 
 
 
+
+
 //вызов попапов
 document.querySelector('.profile__edit-button').addEventListener('click', openEditProfilePopup);
 
 document.querySelector('.profile__add-button').addEventListener('click', function(){
   openPopup('.popup_type_new-card');
 });
+
+
+
+
+//submit
+
+function handleFormSubmit(evt) {
+  evt.preventDefault(); 
+
+  const newName = nameInput.value;
+  const newJob = jobInput.value;
+  const profileTitle = document.querySelector('.profile__title');
+  const profileDescription = document.querySelector('.profile__description');
+
+  // Вставляем новые значения с помощью textContent
+  profileTitle.textContent = newName;
+  profileDescription.textContent = newJob;
+
+  closePopup(document.querySelector('.popup_type_edit'));
+}
+
+// Прикрепляем обработчик к форме
+formElement.addEventListener('submit', handleFormSubmit);
+
+
 
 
 
