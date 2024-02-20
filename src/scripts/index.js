@@ -43,7 +43,7 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopup);
 }
 
-
+//вызов попапов
 document.querySelector('.profile__edit-button').addEventListener('click', function(){
   openPopup('.popup_type_edit');
 });
@@ -51,6 +51,9 @@ document.querySelector('.profile__edit-button').addEventListener('click', functi
 document.querySelector('.profile__add-button').addEventListener('click', function(){
   openPopup('.popup_type_new-card');
 });
+
+
+
 
 // const overlay = document.querySelector('popup_is-opened');
 // overlay.addEventListener('click', function(event) {
@@ -62,7 +65,7 @@ document.querySelector('.profile__add-button').addEventListener('click', functio
 
 
 // @todo: Функция создания карточки
-function createCard(cardData,deleteCard){
+function createCard(cardData,deleteCard,openImagePopup){
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -70,6 +73,10 @@ function createCard(cardData,deleteCard){
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   cardElement.querySelector('.card__title').textContent = cardData.name;
+
+  cardImage.addEventListener('click', function () {
+    openImagePopup(cardData.link);
+  });
 
   cardElement.querySelector('.card__delete-button').addEventListener('click', function (event){
     const currentCard = event.currentTarget.closest('.card');
@@ -84,12 +91,41 @@ function deleteCard(cardElement) {
 // @todo: Вывести карточки на страницу
 function renderCards(cardsArray, deleteCard) {
   cardsArray.forEach(function (card) {
-    const newCard = createCard(card, deleteCard); 
+    const newCard = createCard(card, deleteCard,openImagePopup); 
     placesList.appendChild(newCard);
   });
 }
 
 renderCards(initialCards, deleteCard);
+
+
+//открытие попапа с изображением
+
+function openImagePopup(imageUrl) {
+  const imagePopup = document.querySelector('.popup_type_image');
+  const imageElement = imagePopup.querySelector('.popup__image');
+  const captionElement = imagePopup.querySelector('.popup__caption');
+  
+  imageElement.src = imageUrl;
+  imageElement.alt = 'Image';
+  openPopup('.popup_type_image');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // const formElement = document.querySelector('.popup__form');
