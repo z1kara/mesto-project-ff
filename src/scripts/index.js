@@ -5,6 +5,9 @@ import { initialCards } from "./cards";
 
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
+const editProfilePopup = document.querySelector('.popup_type_edit');
+const nameInput = editProfilePopup.querySelector('.popup__input_type_name');
+const jobInput = editProfilePopup.querySelector('.popup__input_type_description');
 
 // Общая функция для открытия попапа
 function openPopup(popupSelector) {
@@ -42,12 +45,12 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopup);
 }
 
+
+
 //edit profile 
 function openEditProfilePopup() {
   // Получите значения полей из соответствующих элементов на странице
-  const editProfilePopup = document.querySelector('.popup_type_edit');
-  const nameInput = editProfilePopup.querySelector('.popup__input_type_name');
-  const jobInput = editProfilePopup.querySelector('.popup__input_type_description');
+ 
 
   const currentName = document.querySelector('.profile__title').textContent;
   const currentDescription = document.querySelector('.profile__description').textContent;
