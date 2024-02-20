@@ -91,7 +91,9 @@ function deleteCard(cardElement) {
 // @todo: Вывести карточки на страницу
 function renderCards(cardsArray, deleteCard) {
   cardsArray.forEach(function (card) {
-    const newCard = createCard(card, deleteCard,openImagePopup); 
+    const newCard = createCard(card, deleteCard, function () {
+      openImagePopup(card.link, card.caption);
+    }); 
     placesList.appendChild(newCard);
   });
 }
@@ -101,16 +103,16 @@ renderCards(initialCards, deleteCard);
 
 //открытие попапа с изображением
 
-function openImagePopup(imageUrl) {
+function openImagePopup(imageUrl, captionText) {
   const imagePopup = document.querySelector('.popup_type_image');
   const imageElement = imagePopup.querySelector('.popup__image');
   const captionElement = imagePopup.querySelector('.popup__caption');
   
   imageElement.src = imageUrl;
   imageElement.alt = 'Image';
+  captionElement.textContent = captionText; 
   openPopup('.popup_type_image');
 }
-
 
 
 
