@@ -9,6 +9,11 @@ const formElement  = document.querySelector('.popup_type_edit .popup__form');
 const nameInput = formElement.querySelector('.popup__input_type_name');
 const jobInput = formElement.querySelector('.popup__input_type_description');
 
+//dom для новой карточки
+const newCardFormElement = document.querySelector('.popup_type_new-card .popup__form');
+const cardNameInput = newCardFormElement.querySelector('.popup__input_type_card-name');
+const cardLinkInput = newCardFormElement.querySelector('.popup__input_type_url');
+
 // Общая функция для открытия попапа
 function openPopup(popupSelector) {
   const popup = document.querySelector(popupSelector);
@@ -76,7 +81,7 @@ document.querySelector('.profile__add-button').addEventListener('click', functio
 
 
 
-//submit
+//submit edit profile
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); 
@@ -101,6 +106,34 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 
 
+//Обработчик формы для новой карточки
+
+function handleNewCardSubmit(evt) {
+  evt.preventDefault(); 
+  const cardName = cardNameInput.value;
+  const cardLink = cardLinkInput.value;
+
+  const newCardData = {
+    name: cardName,
+    link: cardLink
+  };
+
+// Создаем новую карточку и добавляем её в начало контейнера
+  const newCardElement = createCard(newCardData, deleteCard, openImagePopup);
+  placesList.prepend(newCardElement);
+
+  // Очищаем форму
+  newCardFormElement.reset();
+
+  closePopup(document.querySelector('.popup_type_new-card'));
+}
+
+newCardFormElement.addEventListener('submit', handleNewCardSubmit);
+
+
+
+
+
 // const overlay = document.querySelector('popup_is-opened');
 // overlay.addEventListener('click', function(event) {
 //   // Проверяем, что клик произошел именно на оверлее
@@ -115,6 +148,7 @@ function createCard(cardData,deleteCard,openImagePopup){
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
+  const likeButton = cardElement.querySelector('.card__like-button');
   
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
@@ -124,12 +158,22 @@ function createCard(cardData,deleteCard,openImagePopup){
     openImagePopup(cardData.link);
   });
 
+  likeButton.addEventListener('click', function () {
+    toggleLike(likeButton);
+  });
+
   cardElement.querySelector('.card__delete-button').addEventListener('click', function (event){
     const currentCard = event.currentTarget.closest('.card');
     deleteCard(currentCard);
   })
+
   return cardElement;
 }
+
+function toggleLike(likeButton) {
+  likeButton.classList.toggle('card__like-button_is-active');
+}
+
 // @todo: Функция удаления карточки
 function deleteCard(cardElement) {
    cardElement.remove()
@@ -170,30 +214,3 @@ function openImagePopup(imageUrl, captionText) {
 
 
 
-
-
-
-
-
-
-// const formElement = document.querySelector('.popup__form');
-
-// const nameInput = formElement.querySelector('.popup__input_type_name');
-// const jobInput = formElement.querySelector('.popup__input_type_description');
-
-// function handleFormSubmit(evt) {
-//   evt.preventDefault();
-//   const nameValue = nameInput.value;
-//   const jobValue = jobInput.value;
-
-//   // Выберите элементы, куда должны быть вставлены значения полей (например, элементы для вывода значений)
-//   const nameOutputElement = document.querySelector('.output__name');
-//   const jobOutputElement = document.querySelector('.output__job');
-
-//   // Вставьте новые значения с помощью textContent
-//   nameOutputElement.textContent = nameValue;
-//   jobOutputElement.textContent = jobValue;
-// }
-
-
-// formElement.addEventListener('submit', handleFormSubmit);
