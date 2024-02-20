@@ -6,21 +6,52 @@ import { initialCards } from "./cards";
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
 
-//картинка
-// const avatar = new URL('../images/avatar.jpg', import.meta.url);
-// // // const jamesImage = new URL('./images/james.jpg', import.meta.url);
-// // // const bryantImage = new URL('./images/bryant.jpg', import.meta.url)
-
-// const whoIsTheGoat = [
-//   // меняем исходные пути на переменные
-//   { name: 'page_avatar', link: avatar },
-// ];
 
 // профайл едит
 document.querySelector('.profile__edit-button').addEventListener('click', function(){
   const editPopup = document.querySelector('.popup_type_edit');
   editPopup.classList.add('popup_is-opened');
+
+
+  // закрытие
+  const closeButton = editPopup.querySelector('.popup__close');
+  closeButton.addEventListener('click', function() {
+    closePopup();
+  });
+
+  // закрытие кликом на фон
+  editPopup.addEventListener('click', function(event) {
+    // Проверяем, что клик произошел вне формы попапа
+    if (event.target === editPopup) {
+      closePopup();
+    }
+  });
+
+  // закрытие при нажатии клавиши Esc
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closePopup();
+    }
+  });
+
+  function closePopup() {
+    editPopup.classList.remove('popup_is-opened');
+    closeButton.removeEventListener('click', closePopup);
+    editPopup.removeEventListener('click', closePopup);
+    document.removeEventListener('keydown', closePopup);
+  }
 })
+
+
+
+// const overlay = document.querySelector('popup_is-opened');
+// overlay.addEventListener('click', function(event) {
+//   // Проверяем, что клик произошел именно на оверлее
+//   if (event.target === overlay) {
+//     editPopup.classList.remove('popup_is-opened');
+//   }
+// });
+
 
 // @todo: Функция создания карточки
 function createCard(cardData,deleteCard){
