@@ -1,9 +1,20 @@
+
+import "../pages/index.css"
+import { initialCards } from "./cards";
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
 
+//картинка
+// const avatar = new URL('../images/avatar.jpg', import.meta.url);
+// // // const jamesImage = new URL('./images/james.jpg', import.meta.url);
+// // // const bryantImage = new URL('./images/bryant.jpg', import.meta.url)
 
+// const whoIsTheGoat = [
+//   // меняем исходные пути на переменные
+//   { name: 'page_avatar', link: avatar },
+// ];
 
 // профайл едит
 document.querySelector('.profile__edit-button').addEventListener('click', function(){
