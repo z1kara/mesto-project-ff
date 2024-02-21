@@ -41,7 +41,7 @@ function createCard(cardData, deleteCard, openImagePopup) {
   cardElement.querySelector(".card__title").textContent = cardData.name;
 
   cardImage.addEventListener("click", function () {
-    openImagePopup(cardData.link);
+    openImagePopup(cardData.link, cardData.name);
   });
 
   likeButton.addEventListener("click", function () {
