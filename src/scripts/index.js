@@ -2,6 +2,11 @@
 import "../pages/index.css"
 //импорт для index
 import { initialCards, renderCards , deleteCard} from "./cards";
+
+// import for modal 
+import {createCard} from "./cards";
+
+
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы

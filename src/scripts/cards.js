@@ -78,4 +78,4 @@ function renderCards(cardsArray, deleteCard) {
 }
 
 
-export {initialCards, renderCards, deleteCard};
+export {initialCards, renderCards, deleteCard, createCard};
