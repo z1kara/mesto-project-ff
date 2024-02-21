@@ -132,17 +132,6 @@ newCardFormElement.addEventListener('submit', handleNewCardSubmit);
 
 
 
-
-
-// const overlay = document.querySelector('popup_is-opened');
-// overlay.addEventListener('click', function(event) {
-//   // Проверяем, что клик произошел именно на оверлее
-//   if (event.target === overlay) {
-//     editPopup.classList.remove('popup_is-opened');
-//   }
-// });
-
-
 // @todo: Функция создания карточки
 function createCard(cardData,deleteCard,openImagePopup){
   const cardTemplate = document.querySelector('#card-template').content;
