@@ -71,7 +71,7 @@ function deleteCard(cardElement) {
 function renderCards(cardsArray, deleteCard) {
   cardsArray.forEach(function (card) {
     const newCard = createCard(card, deleteCard, function () {
-      openImagePopup(card.link, card.caption);
+      openImagePopup(card.link, card.name);
     });
     placesList.appendChild(newCard);
   });

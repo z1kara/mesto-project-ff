@@ -109,6 +109,7 @@ function openImagePopup(imageUrl, captionText) {
   imageElement.src = imageUrl;
   imageElement.alt = "Image";
   captionElement.textContent = captionText;
+  console.log("captionText", captionText);
   openPopup(".popup_type_image");
 }
 
