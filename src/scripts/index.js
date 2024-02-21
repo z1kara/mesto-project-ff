@@ -1,6 +1,7 @@
 
 import "../pages/index.css"
-import { initialCards } from "./cards";
+//импорт для index
+import { initialCards, renderCards , deleteCard} from "./cards";
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы
@@ -132,50 +133,8 @@ newCardFormElement.addEventListener('submit', handleNewCardSubmit);
 
 
 
-// @todo: Функция создания карточки
-function createCard(cardData,deleteCard,openImagePopup){
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const likeButton = cardElement.querySelector('.card__like-button');
-  
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-  cardElement.querySelector('.card__title').textContent = cardData.name;
 
-  cardImage.addEventListener('click', function () {
-    openImagePopup(cardData.link);
-  });
 
-  likeButton.addEventListener('click', function () {
-    toggleLike(likeButton);
-  });
-
-  cardElement.querySelector('.card__delete-button').addEventListener('click', function (event){
-    const currentCard = event.currentTarget.closest('.card');
-    deleteCard(currentCard);
-  })
-
-  return cardElement;
-}
-
-function toggleLike(likeButton) {
-  likeButton.classList.toggle('card__like-button_is-active');
-}
-
-// @todo: Функция удаления карточки
-function deleteCard(cardElement) {
-   cardElement.remove()
-}
-// @todo: Вывести карточки на страницу
-function renderCards(cardsArray, deleteCard) {
-  cardsArray.forEach(function (card) {
-    const newCard = createCard(card, deleteCard, function () {
-      openImagePopup(card.link, card.caption);
-    }); 
-    placesList.appendChild(newCard);
-  });
-}
 
 renderCards(initialCards, deleteCard);
 
@@ -192,3 +151,6 @@ function openImagePopup(imageUrl, captionText) {
   captionElement.textContent = captionText; 
   openPopup('.popup_type_image');
 }
+
+export {placesList}
+export {openImagePopup}
