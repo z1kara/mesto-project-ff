@@ -203,14 +203,3 @@ function openImagePopup(imageUrl, captionText) {
   captionElement.textContent = captionText; 
   openPopup('.popup_type_image');
 }
-
-
-
-
-
-
-
-
-
-
-
