@@ -1,8 +1,9 @@
 
+
 // @todo: Функция создания карточки
 
 
-function createCard(cardData, deleteCard, openImagePopup) {
+function createCard(cardData, deleteCard, openImagePopup, toggleLike) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -34,9 +35,19 @@ function toggleLike(likeButton) {
   likeButton.classList.toggle("card__like-button_is-active");
 }
 
+// Функция для добавления обработчика событий для лайка к карточке
+function addLikeButtonListener(cardElement, toggleLike) {
+  const likeButton = cardElement.querySelector('.card__like-button');
+  if (likeButton) {
+    likeButton.addEventListener('click', function () {
+      toggleLike(likeButton);
+    });
+  }
+}
+
 // @todo: Функция удаления карточки
 function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-export {deleteCard, createCard };
+export {deleteCard, createCard, toggleLike, addLikeButtonListener };

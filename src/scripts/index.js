@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import { initialCards} from "./cards";
 
-import {deleteCard, createCard } from "./card"
+import {deleteCard, createCard, toggleLike, addLikeButtonListener } from "./card"
 
 import {
   openPopup,
@@ -74,8 +74,11 @@ function handleNewCardSubmit(evt) {
   };
 
   // Создаем новую карточку и добавляем её в начало контейнера
-  const newCardElement = createCard(newCardData, deleteCard, openImagePopup);
+  const newCardElement = createCard(newCardData, deleteCard, openImagePopup, toggleLike);
   placesList.prepend(newCardElement);
+
+  // Добавляем обработчик события для лайка к новой карточке
+  addLikeButtonListener(newCardElement, toggleLike);
 
   // Очищаем форму
   newCardFormElement.reset();
@@ -113,16 +116,19 @@ editForm.addEventListener("submit", handleFormSubmit);
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
 // @todo: Вывести карточки на страницу
-function renderCards(cardsArray, deleteCard) {
+function renderCards(cardsArray, deleteCard, toggleLike) {
   cardsArray.forEach(function (card) {
     const newCard = createCard(card, deleteCard, function () {
       openImagePopup(card.link, card.name);
-    });
+    }, toggleLike);
     placesList.appendChild(newCard);
+
+    // Добавляем обработчик события для лайка для каждой существующей карточки
+    addLikeButtonListener(newCard, toggleLike);
   });
 }
 
-renderCards(initialCards, deleteCard);
+renderCards(initialCards, deleteCard, toggleLike);
 
 export {
   placesList,
