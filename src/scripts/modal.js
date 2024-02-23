@@ -7,7 +7,7 @@ import {
   placesList,
 } from "./index.js";
 
-import { createCard, deleteCard } from "./cards.js";
+import { createCard, deleteCard } from "./card.js";
 
 // Общая функция для открытия попапа
 function openPopup(popupSelector) {

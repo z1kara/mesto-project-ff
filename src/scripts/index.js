@@ -1,7 +1,8 @@
 import "../pages/index.css";
 
-import { initialCards, deleteCard, createCard } from "./cards";
+import { initialCards} from "./cards";
 
+import {deleteCard, createCard } from "./card"
 
 import {
   openPopup,
