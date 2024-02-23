@@ -13,9 +13,9 @@ import {
 
 // @todo: DOM узлы
 const placesList = document.querySelector(".places__list");
-const formElement = document.querySelector(".popup_type_edit .popup__form");
-const nameInput = formElement.querySelector(".popup__input_type_name");
-const jobInput = formElement.querySelector(".popup__input_type_description");
+const editForm = document.querySelector(".popup_type_edit .popup__form");
+const nameInput = editForm.querySelector(".popup__input_type_name");
+const jobInput = editForm.querySelector(".popup__input_type_description");
 
 //dom для новой карточки
 const newCardFormElement = document.querySelector(
@@ -40,7 +40,7 @@ document
   });
 
 // Прикрепляем обработчик к форме
-formElement.addEventListener("submit", handleFormSubmit);
+editForm.addEventListener("submit", handleFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
