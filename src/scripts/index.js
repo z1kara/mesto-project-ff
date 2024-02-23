@@ -1,12 +1,15 @@
 import "../pages/index.css";
 
-import { initialCards, renderCards, deleteCard } from "./cards";
+import { initialCards, deleteCard, createCard } from "./cards";
+
 
 import {
   openPopup,
+  openImagePopup,
   openEditProfilePopup,
   handleFormSubmit,
   handleNewCardSubmit,
+  
 } from "./modal";
 
 // @todo: Темплейт карточки
@@ -43,6 +46,16 @@ document
 editForm.addEventListener("submit", handleFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
+
+// @todo: Вывести карточки на страницу
+function renderCards(cardsArray, deleteCard) {
+  cardsArray.forEach(function (card) {
+    const newCard = createCard(card, deleteCard, function () {
+      openImagePopup(card.link, card.name);
+    });
+    placesList.appendChild(newCard);
+  });
+}
 
 renderCards(initialCards, deleteCard);
 

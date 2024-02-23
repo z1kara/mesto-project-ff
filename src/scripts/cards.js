@@ -67,14 +67,4 @@ function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-// @todo: Вывести карточки на страницу
-function renderCards(cardsArray, deleteCard) {
-  cardsArray.forEach(function (card) {
-    const newCard = createCard(card, deleteCard, function () {
-      openImagePopup(card.link, card.name);
-    });
-    placesList.appendChild(newCard);
-  });
-}
-
-export { initialCards, renderCards, deleteCard, createCard };
+export { initialCards, deleteCard, createCard };
