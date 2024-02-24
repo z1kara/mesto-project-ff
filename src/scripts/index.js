@@ -104,7 +104,7 @@ function openImagePopup(imageUrl, captionText) {
   const captionElement = imagePopup.querySelector(".popup__caption");
 
   imageElement.src = imageUrl;
-  imageElement.alt = "Image";
+  imageElement.alt = captionText;
   captionElement.textContent = captionText;
   openModal(imagePopup);
 }
