@@ -56,7 +56,7 @@ function openEditProfilePopup() {
 
 //submit edit profile
 
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
 
   const newName = nameInput.value;
@@ -121,7 +121,7 @@ document
   });
 
 // Прикрепляем обработчик к форме
-editForm.addEventListener("submit", handleFormSubmit);
+editForm.addEventListener("submit", handleEditFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
