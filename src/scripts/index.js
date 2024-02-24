@@ -5,8 +5,8 @@ import { initialCards} from "./cards";
 import {deleteCard, createCard, toggleLike, addLikeButtonListener } from "./card"
 
 import {
-  openPopup,
-  closePopup
+  openModal,
+  closeModal
 } from "./modal";
 
 // @todo: Темплейт карточки
@@ -41,7 +41,7 @@ function openEditProfilePopup() {
   nameInput.value = currentName;
   jobInput.value = currentDescription;
 
-  openPopup(".popup_type_edit");
+  openModal(".popup_type_edit");
 }
 
 //submit edit profile
@@ -58,7 +58,7 @@ function handleFormSubmit(evt) {
   profileTitle.textContent = newName;
   profileDescription.textContent = newJob;
 
-  closePopup(document.querySelector(".popup_type_edit"));
+  closeModal(document.querySelector(".popup_type_edit"));
 }
 
 //Обработчик формы для новой карточки
@@ -83,7 +83,7 @@ function handleNewCardSubmit(evt) {
   // Очищаем форму
   newCardFormElement.reset();
 
-  closePopup(document.querySelector(".popup_type_new-card"));
+  closeModal(document.querySelector(".popup_type_new-card"));
 }
 
 //открытие попапа с изображением
@@ -96,7 +96,7 @@ function openImagePopup(imageUrl, captionText) {
   imageElement.src = imageUrl;
   imageElement.alt = "Image";
   captionElement.textContent = captionText;
-  openPopup(".popup_type_image");
+  openModal(".popup_type_image");
 }
 
 //вызов попапов
@@ -107,7 +107,7 @@ document
 document
   .querySelector(".profile__add-button")
   .addEventListener("click", function () {
-    openPopup(".popup_type_new-card");
+    openModal(".popup_type_new-card");
   });
 
 // Прикрепляем обработчик к форме
