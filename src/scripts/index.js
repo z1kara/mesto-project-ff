@@ -13,7 +13,8 @@ import {
 
 // @todo: DOM узлы
 const placesList = document.querySelector(".places__list");
-const editForm = document.querySelector(".popup_type_edit .popup__form");
+const newCardForm = document.querySelector(".popup_type_new-card")
+const editForm = document.querySelector(".popup_type_edit");
 const nameInput = editForm.querySelector(".popup__input_type_name");
 const jobInput = editForm.querySelector(".popup__input_type_description");
 
@@ -41,7 +42,7 @@ function openEditProfilePopup() {
   nameInput.value = currentName;
   jobInput.value = currentDescription;
 
-  openModal(".popup_type_edit");
+  openModal(editForm);
 }
 
 //submit edit profile
@@ -58,7 +59,7 @@ function handleFormSubmit(evt) {
   profileTitle.textContent = newName;
   profileDescription.textContent = newJob;
 
-  closeModal(document.querySelector(".popup_type_edit"));
+  closeModal(editForm);
 }
 
 //Обработчик формы для новой карточки
@@ -83,7 +84,7 @@ function handleNewCardSubmit(evt) {
   // Очищаем форму
   newCardFormElement.reset();
 
-  closeModal(document.querySelector(".popup_type_new-card"));
+  closeModal(newCardForm);
 }
 
 //открытие попапа с изображением
@@ -96,7 +97,7 @@ function openImagePopup(imageUrl, captionText) {
   imageElement.src = imageUrl;
   imageElement.alt = "Image";
   captionElement.textContent = captionText;
-  openModal(".popup_type_image");
+  openModal(imagePopup);
 }
 
 //вызов попапов
@@ -107,7 +108,7 @@ document
 document
   .querySelector(".profile__add-button")
   .addEventListener("click", function () {
-    openModal(".popup_type_new-card");
+    openModal(newCardForm);
   });
 
 // Прикрепляем обработчик к форме
