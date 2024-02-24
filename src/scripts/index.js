@@ -29,6 +29,15 @@ const cardLinkInput = newCardFormElement.querySelector(
   ".popup__input_type_url"
 );
 
+//закрытие попапа на кнопку
+const closeButtons = document.querySelectorAll(".popup__close");
+closeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const popupElement = button.closest(".popup");
+    closeModal(popupElement);
+  });
+});
+
 //edit profile
 function openEditProfilePopup() {
   // Получите значения полей из соответствующих элементов на странице

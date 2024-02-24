@@ -13,37 +13,33 @@ import { createCard, deleteCard } from "./card.js";
 function openModal(popupElement) {
   popupElement.classList.add("popup_is-opened");
 
-  // Обработчик закрытия при клике на крестик
-  const closeButton = popupElement.querySelector(".popup__close");
-  closeButton.addEventListener("click", function () {
-    closeModal(popupElement);
-  });
+  popupElement.addEventListener("click", closePopupByOverlay);
 
-  // Обработчик закрытия кликом на фон
-  popupElement.addEventListener("click", function (event) {
-    if (event.target === popupElement) {
-      closeModal(popupElement);
-    }
-  });
-
-  // Обработчик закрытия при нажатии клавиши Esc
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      closeModal(popupElement);
-    }
-  });
+  document.addEventListener("keydown", closePopupByEsc);
 }
 
 // Общая функция для закрытия попапа
 function closeModal(popupElement) {
   popupElement.classList.remove("popup_is-opened");
-  const closeButton = popupElement.querySelector(".popup__close");
-  closeButton.removeEventListener("click", closeModal);
-  popupElement.removeEventListener("click", closeModal);
-  document.removeEventListener("keydown", closeModal);
+  
+  // Удаляем обработчики событий
+  popupElement.removeEventListener("click", closePopupByOverlay);
+  document.removeEventListener("keydown", closePopupByEsc);
 }
 
+function closePopupByOverlay(event) {
+  if (event.target === event.currentTarget) {
+    const popupElement = event.currentTarget;
+    closeModal(popupElement);
+  }
+}
 
+function closePopupByEsc(event) {
+  if (event.key === "Escape") {
+    const popupElement = document.querySelector(".popup_is-opened");
+    closeModal(popupElement);
+  }
+}
 
 export {
   openModal,
