@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import { initialCards} from "./cards";
 
-import {deleteCard, createCard, toggleLike, addLikeButtonListener } from "./card"
+import {deleteCard, createCard, toggleLike } from "./card"
 
 import {
   openModal,
@@ -87,8 +87,6 @@ function handleNewCardSubmit(evt) {
   const newCardElement = createCard(newCardData, deleteCard, openImagePopup, toggleLike);
   placesList.prepend(newCardElement);
 
-  // Добавляем обработчик события для лайка к новой карточке
-  addLikeButtonListener(newCardElement, toggleLike);
 
   // Очищаем форму
   newCardFormElement.reset();
@@ -132,9 +130,6 @@ function renderCards(cardsArray, deleteCard, toggleLike) {
       openImagePopup(card.link, card.name);
     }, toggleLike);
     placesList.appendChild(newCard);
-
-    // Добавляем обработчик события для лайка для каждой существующей карточки
-    addLikeButtonListener(newCard, toggleLike);
   });
 }
 
