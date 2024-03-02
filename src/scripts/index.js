@@ -4,6 +4,9 @@ import { initialCards} from "./cards";
 
 import {deleteCard, createCard, toggleLike } from "./card"
 
+import { enableValidation, clearValidation } from "./validation";
+
+
 import {
   openModal,
   closeModal
@@ -28,6 +31,17 @@ const cardNameInput = newCardFormElement.querySelector(
 const cardLinkInput = newCardFormElement.querySelector(
   ".popup__input_type_url"
 );
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__error',
+  errorClass: 'popup__error_visible'
+});
+
+
 
 //закрытие попапа на кнопку
 const closeButtons = document.querySelectorAll(".popup__close");
@@ -90,7 +104,7 @@ function handleNewCardSubmit(evt) {
 
   // Очищаем форму
   newCardFormElement.reset();
-
+  clearValidation(newCardFormElement);
   closeModal(newCardForm);
 }
 

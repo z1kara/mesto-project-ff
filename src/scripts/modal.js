@@ -9,6 +9,8 @@ import {
 
 import { createCard, deleteCard } from "./card.js";
 
+import { clearValidation } from "./validation";
+
 // Общая функция для открытия попапа
 function openModal(popupElement) {
   popupElement.classList.add("popup_is-opened");
@@ -25,6 +27,10 @@ function closeModal(popupElement) {
   // Удаляем обработчики событий
   popupElement.removeEventListener("click", closePopupByOverlay);
   document.removeEventListener("keydown", closePopupByEsc);
+
+  if (popupElement.querySelector('.popup__form')) {
+    clearValidation(popupElement.querySelector('.popup__form'));
+  }
 }
 
 function closePopupByOverlay(event) {
