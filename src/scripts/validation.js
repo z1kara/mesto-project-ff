@@ -1,4 +1,4 @@
-function isLatinCyrillicDashSpace(str) {
+function inputpattern(str) {
   const pattern = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
   return pattern.test(str);
 }
@@ -35,7 +35,7 @@ function checkInputValidity(input) {
   }
 
   if (input.name === 'name' || input.name === 'description' || input.name === 'place-name') {
-    if (!isLatinCyrillicDashSpace(input.value)) {
+    if (!inputpattern(input.value)) {
       showError(input, 'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
       return false;
     }
