@@ -139,17 +139,30 @@ editForm.addEventListener("submit", handleEditFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
-// @todo: Вывести карточки на страницу
-function renderCards(cardsArray, deleteCard, toggleLike) {
-  cardsArray.forEach(function (card) {
-    const newCard = createCard(card, deleteCard, function () {
-      openImagePopup(card.link, card.name);
-    }, toggleLike);
-    placesList.appendChild(newCard);
-  });
+// Обновленная функция для создания карточки и её рендера
+function createCardAndRender(cardData) {
+  const newCardElement = createCard(cardData, deleteCard, function () {
+    openImagePopup(cardData.link, cardData.name);
+  }, toggleLike);
+  placesList.prepend(newCardElement);
 }
 
-renderCards(initialCards, deleteCard, toggleLike);
+Promise.all([getUser(), getInitialCards()])
+  .then(([userData, initialCardsData]) => {
+    // Рендерим данные пользователя
+    const profileTitle = document.querySelector(".profile__title");
+    const profileDescription = document.querySelector(".profile__description");
+    profileTitle.textContent = userData.name;
+    profileDescription.textContent = userData.about;
+
+    // Рендерим начальные карточки
+    initialCardsData.forEach((card) => {
+      createCardAndRender(card);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });
 
 export {
   placesList,
