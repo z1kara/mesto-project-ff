@@ -12,6 +12,8 @@ import {
   closeModal
 } from "./modal";
 
+import {getUser, getInitialCards} from "./api"
+
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы
