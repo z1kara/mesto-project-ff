@@ -78,28 +78,26 @@ function handleEditFormSubmit(evt) {
   const newName = nameInput.value;
   const newJob = jobInput.value;
 
-  // Call editUser with the updated user data
   editUser({
     name: newName,
     about: newJob,
   })
     .then((userData) => {
 
-      // Update the profile information on the page
       const profileTitle = document.querySelector(".profile__title");
       const profileDescription = document.querySelector(".profile__description");
 
       profileTitle.textContent = userData.name;
       profileDescription.textContent = userData.about;
 
-      // Close the edit form
       closeModal(editForm);
     })
     .catch((error) => {
-      // Handle error response, if needed
-      console.error("Error updating user data:", error);
+      console.error("Ошибка при обновлении user data:", error);
     });
+    
 }
+
 
   // const newName = nameInput.value;
   // const newJob = jobInput.value;
