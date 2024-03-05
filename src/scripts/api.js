@@ -28,7 +28,7 @@ const getInitialCards = () => {
   .then(checkResponse);
 } 
 
-function editUser (data){
+const editUser = (data) =>{
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,

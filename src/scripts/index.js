@@ -77,15 +77,47 @@ function handleEditFormSubmit(evt) {
 
   const newName = nameInput.value;
   const newJob = jobInput.value;
-  const profileTitle = document.querySelector(".profile__title");
-  const profileDescription = document.querySelector(".profile__description");
 
-  // Вставляем новые значения с помощью textContent
-  profileTitle.textContent = newName;
-  profileDescription.textContent = newJob;
+  // Call editUser with the updated user data
+  editUser({
+    name: newName,
+    about: newJob,
+  })
+    .then((userData) => {
 
-  closeModal(editForm);
+      // Update the profile information on the page
+      const profileTitle = document.querySelector(".profile__title");
+      const profileDescription = document.querySelector(".profile__description");
+
+      profileTitle.textContent = userData.name;
+      profileDescription.textContent = userData.about;
+
+      // Close the edit form
+      closeModal(editForm);
+    })
+    .catch((error) => {
+      // Handle error response, if needed
+      console.error("Error updating user data:", error);
+    });
 }
+
+  // const newName = nameInput.value;
+  // const newJob = jobInput.value;
+  // const profileTitle = document.querySelector(".profile__title");
+  // const profileDescription = document.querySelector(".profile__description");
+
+  // // // Вставляем новые значения с помощью textContent
+  // // profileTitle.textContent = newName;
+  // // profileDescription.textContent = newJob;
+
+  // editUser ({ name: newName, about: newJob })
+  // .then((data)=>{
+  //   profileTitle.textContent = data.name;
+  //   profileDescription.textContent = data.about;
+  // })
+  // .catch((err) => console.log(err));
+  // closeModal(editForm);
+//}
 
 //Обработчик формы для новой карточки
 
