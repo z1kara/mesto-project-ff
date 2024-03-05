@@ -12,7 +12,7 @@ import {
   closeModal
 } from "./modal";
 
-import {getUser, getInitialCards} from "./api"
+import {getUser, getInitialCards, editUser} from "./api"
 
 // @todo: Темплейт карточки
 

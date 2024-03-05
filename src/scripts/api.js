@@ -28,4 +28,13 @@ const getInitialCards = () => {
   .then(checkResponse);
 } 
 
-export {getUser, getInitialCards};
+function editUser (data){
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify(data)
+  })
+  .then(checkResponse)
+};
+
+export {getUser, getInitialCards, editUser};
