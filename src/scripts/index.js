@@ -130,7 +130,7 @@ function handleNewCardSubmit(evt) {
 
   createNewCardApi(newCardData)
     .then((newCardData) => {
-      const newCardElement = createCard(newCardData, deleteCard, openImagePopup, toggleLike);
+      const newCardElement = createCard(newCardData, deleteCard, newCardData.owner , openImagePopup, toggleLike);
       placesList.prepend(newCardElement);
 
       // Очищаем форму
@@ -174,7 +174,7 @@ newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
 // Обновленная функция для создания карточки и её рендера
 function createCardAndRender(cardData,userData) {
-  const newCardElement = createCard(cardData, deleteCard,userData, function () {
+  const newCardElement = createCard(cardData, deleteCard , userData , function () {
     openImagePopup(cardData.link, cardData.name);
   }, toggleLike);
   placesList.prepend(newCardElement);
