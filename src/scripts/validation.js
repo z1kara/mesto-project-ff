@@ -98,8 +98,9 @@ function clearValidation(form) {
 
   toggleButtonState(form, submitButton, false);
 
-  // Сброс состояния валидации формы
-  form.reset();
+  // Сброс состояния валидации формы 
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!! нужно сделать ресет только для формы новой карточки 
+  // form.reset();
 }
 
 export {

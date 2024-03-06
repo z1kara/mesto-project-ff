@@ -77,7 +77,6 @@ function handleEditFormSubmit(evt) {
 
   const newName = nameInput.value;
   const newJob = jobInput.value;
-
   editUser({
     name: newName,
     about: newJob,
@@ -95,7 +94,7 @@ function handleEditFormSubmit(evt) {
     .catch((error) => {
       console.error("Ошибка при обновлении user data:", error);
     });
-    
+  
 }
 
 
