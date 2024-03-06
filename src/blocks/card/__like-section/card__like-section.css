@@ -1,0 +1,6 @@
+.card__like-section {
+  max-height: 35px;
+  max-width: 22px;
+  display: flex;
+  flex-direction: column;
+}
