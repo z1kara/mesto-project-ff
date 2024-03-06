@@ -50,4 +50,14 @@ const editUser = (data) =>{
 // };
 
 
-export {getUser, getInitialCards, editUser};
+function createNewCardApi (CardData){
+  return fetch(`${config.baseUrl}/cards`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify(CardData),
+  })
+  .then(checkResponse);
+}
+
+
+export {getUser, getInitialCards, editUser, createNewCardApi};

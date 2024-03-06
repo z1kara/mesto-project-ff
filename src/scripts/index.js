@@ -12,7 +12,7 @@ import {
   closeModal
 } from "./modal";
 
-import {getUser, getInitialCards, editUser} from "./api"
+import {getUser, getInitialCards, editUser, createNewCardApi} from "./api"
 
 // @todo: Темплейт карточки
 
@@ -128,15 +128,19 @@ function handleNewCardSubmit(evt) {
     link: cardLink,
   };
 
-  // Создаем новую карточку и добавляем её в начало контейнера
-  const newCardElement = createCard(newCardData, deleteCard, openImagePopup, toggleLike);
-  placesList.prepend(newCardElement);
+  createNewCardApi(newCardData)
+    .then((newCardData) => {
+      const newCardElement = createCard(newCardData, deleteCard, openImagePopup, toggleLike);
+      placesList.prepend(newCardElement);
 
-
-  // Очищаем форму
-  newCardFormElement.reset();
-  clearValidation(newCardFormElement);
-  closeModal(newCardForm);
+      // Очищаем форму
+      newCardFormElement.reset();
+      clearValidation(newCardFormElement);
+      closeModal(newCardForm);
+    })
+    .catch((error) => {
+      console.error("Ошибка при создании новой карточки:", error);
+    });
 }
 
 //открытие попапа с изображением
@@ -184,8 +188,8 @@ Promise.all([getUser(), getInitialCards()])
     profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
 
-    // Рендерим начальные карточки
-    initialCardsData.forEach((card) => {
+    // Рендерим начальные карточки нужно в реверсе чтобы отображалась моя 1 после обновления страницы
+    initialCardsData.reverse().forEach((card) => {
       createCardAndRender(card);
     });
   })
