@@ -3,7 +3,7 @@
 // @todo: Функция создания карточки
 
 
-function createCard(cardData, deleteCard, openImagePopup, toggleLike) {
+function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -25,6 +25,8 @@ function createCard(cardData, deleteCard, openImagePopup, toggleLike) {
     cardData.likes = updateLikesArray(cardData.likes, isLiked);
     updateLikeCount(likeCount, cardData.likes.length);
   });
+
+  console.log(userData._id);
 
   cardElement
     .querySelector(".card__delete-button")

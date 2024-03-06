@@ -173,8 +173,8 @@ editForm.addEventListener("submit", handleEditFormSubmit);
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
 // Обновленная функция для создания карточки и её рендера
-function createCardAndRender(cardData) {
-  const newCardElement = createCard(cardData, deleteCard, function () {
+function createCardAndRender(cardData,userData) {
+  const newCardElement = createCard(cardData, deleteCard,userData, function () {
     openImagePopup(cardData.link, cardData.name);
   }, toggleLike);
   placesList.prepend(newCardElement);
@@ -190,7 +190,7 @@ Promise.all([getUser(), getInitialCards()])
 
     // Рендерим начальные карточки нужно в реверсе чтобы отображалась моя 1 после обновления страницы
     initialCardsData.reverse().forEach((card) => {
-      createCardAndRender(card);
+      createCardAndRender(card,userData);
     });
   })
   .catch((error) => {
