@@ -37,19 +37,6 @@ const editUser = (data) =>{
   .then(checkResponse)
 };
 
-// const editUser = ({name,about}) =>{
-//   return fetch(`${config.baseUrl}/users/me`, {
-//     method: "PATCH",
-//     headers: config.headers,
-//     body: JSON.stringify({
-//       name: name,
-//       about: about
-//     })
-//   })
-//   .then(checkResponse)
-// };
-
-
 function createNewCardApi (CardData){
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
