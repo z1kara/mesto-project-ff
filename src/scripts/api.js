@@ -46,5 +46,13 @@ function createNewCardApi (CardData){
   .then(checkResponse);
 }
 
+function deleteCardApi(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  })
+  .then(checkResponse);
+}
+
 
 export {getUser, getInitialCards, editUser, createNewCardApi};
