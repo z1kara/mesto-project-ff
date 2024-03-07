@@ -54,5 +54,22 @@ function deleteCardApi(cardId) {
   .then(checkResponse);
 }
 
+function putLike (cardId){
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  method: "PUT",
+  headers: config.headers,
+})
+.then(checkResponse);
+}
 
-export {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi};
+function deleteLike (cardId){
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  method: "DELETE",
+  headers: config.headers,
+})
+.then(checkResponse);
+}
+
+
+
+export {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi, putLike, deleteLike};

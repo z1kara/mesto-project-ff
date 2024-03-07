@@ -2,6 +2,10 @@
 import {
   openDeleteConfirmationPopup
 } from "./index.js";
+
+import {
+  putLike, deleteLike
+} from "./api.js";
 // @todo: Функция создания карточки
 
 
@@ -11,6 +15,14 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
   const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
   const likeCount = cardElement.querySelector(".card__like-count");
+
+  // Установите начальное состояние лайка
+  const isLikedByCurrentUser = cardData.likes.some(
+    (like) => like._id === userData._id
+  );
+  if (isLikedByCurrentUser) {
+    likeButton.classList.add("card__like-button_is-active");
+  }
 
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
@@ -22,11 +34,29 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
 
   likeButton.addEventListener("click", function () {
     toggleLike(likeButton);
-  
+
     const isLiked = likeButton.classList.contains("card__like-button_is-active");
-    cardData.likes = updateLikesArray(cardData.likes, isLiked);
     updateLikeCount(likeCount, cardData.likes.length);
+
+    if (isLiked) {
+      putLike(cardData._id)
+        .then((updatedCardData) => {
+          updateLikeCount(likeCount, updatedCardData.likes.length);
+        })
+        .catch((error) => {
+          console.error("Ошибка при постановке лайка:", error);
+        });
+    } else {
+      deleteLike(cardData._id)
+        .then((updatedCardData) => {
+          updateLikeCount(likeCount, updatedCardData.likes.length);
+        })
+        .catch((error) => {
+          console.error("Ошибка при снятии лайка:", error);
+        });
+    }
   });
+
 
   if (userData._id === cardData.owner._id){
     cardElement
@@ -43,23 +73,6 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
   updateLikeCount(likeCount, cardData.likes.length);
 
   return cardElement;
-}
-
-// Функция для обновления массива лайков при нажатии на кнопку лайка
-function updateLikesArray(likesArray, isLiked) {
-  const userId = "currentUser"; // !!!надо заменить "currentUser" на реальный идентификатор пользователя
-
-  // Проверяем, есть ли текущий пользователь в массиве лайков
-  const userIndex = likesArray.findIndex((like) => like._id === userId);
-
-  if (isLiked && userIndex === -1) {
-    return [...likesArray, { _id: userId }];
-  } else if (!isLiked && userIndex !== -1) {
-    // Удаляем лайк, если он уже был поставлен
-    return likesArray.filter((like) => like._id !== userId);
-  }
-
-  return likesArray;
 }
 
 // Функция для обновления отображаемого количества лайков
