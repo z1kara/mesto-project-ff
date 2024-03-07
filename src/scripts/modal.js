@@ -18,6 +18,10 @@ function openModal(popupElement) {
   popupElement.addEventListener("click", closePopupByOverlay);
 
   document.addEventListener("keydown", closePopupByEsc);
+  
+  if (!popupElement.classList.contains("popup_type_image") && !popupElement.classList.contains("popup_type_confirm")) {
+    clearValidation(popupElement.querySelector('.popup__form'));
+  }
 }
 
 // Общая функция для закрытия попапа
