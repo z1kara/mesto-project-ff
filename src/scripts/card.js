@@ -15,6 +15,7 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
   const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
   const likeCount = cardElement.querySelector(".card__like-count");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   // Установите начальное состояние лайка
   const isLikedByCurrentUser = cardData.likes.some(
@@ -59,15 +60,16 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
 
 
   if (userData._id === cardData.owner._id){
-    cardElement
-      .querySelector(".card__delete-button")
-      .addEventListener("click", function () {
-        openDeleteConfirmationPopup(cardData._id);
+    const cardElement = deleteButton.closest(".card")
+    deleteButton.addEventListener("click", function () {
+        deleteCard(cardElement, cardData._id);
       });
+      // .addEventListener("click", function () {
+      //   openDeleteConfirmationPopup(cardData._id);
+      // });
   } else {
     // Если не владелец, скрываем иконку удаления
-    const deleteButton = cardElement.querySelector(".card__delete-button");
-    deleteButton.style.display = "none";
+    deleteButton.remove();
   }
 
   updateLikeCount(likeCount, cardData.likes.length);
@@ -87,9 +89,9 @@ function toggleLike(likeButton) {
 
 
 
-// @todo: Функция удаления карточки
-function deleteCard(cardElement) {
-  cardElement.remove();
-}
+// // @todo: Функция удаления карточки
+// function deleteCard(cardElement) {
+//   cardElement.remove();
+// }
 
-export {deleteCard, createCard, toggleLike };
+export { createCard, toggleLike };

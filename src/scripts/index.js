@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import { initialCards} from "./cards";
 
-import {deleteCard, createCard, toggleLike } from "./card"
+import { createCard, toggleLike } from "./card"
 
 import { enableValidation, clearValidation } from "./validation";
 
@@ -131,7 +131,7 @@ function handleNewCardSubmit(evt) {
 
   createNewCardApi(newCardData)
     .then((newCardData) => {
-      const newCardElement = createCard(newCardData, deleteCard, newCardData.owner , openImagePopup, toggleLike);
+      const newCardElement = createCard(newCardData, openDeleteConfirmationPopup , newCardData.owner , openImagePopup, toggleLike);
       placesList.prepend(newCardElement);
 
       // Очищаем форму
@@ -158,24 +158,29 @@ function openImagePopup(imageUrl, captionText) {
 }
 
 //попап подтверждения
-function openDeleteConfirmationPopup(cardId) {
+function openDeleteConfirmationPopup(cardElement, cardId) {
    //cardId в форме подтверждения для след использования
-  const formConfirm = document.getElementById("formConfirm");
-  formConfirm.setAttribute("data-card-id", cardId);
-
+  // const formConfirm = document.getElementById("formConfirm");
+  confirmForm.addEventListener("submit", (evt)=>{
+    evt.preventDefault();
+    handleConfirmSubmit(cardElement, cardId);
+  });
+  // formConfirm.setAttribute("data-card-id", cardId);
+  
   openModal(confirmForm);
 }
 
 //submit confirm
-function handleConfirmSubmit (evt){
-  evt.preventDefault();
-  const formConfirm = document.getElementById("formConfirm");
-  const cardId = formConfirm.getAttribute("data-card-id");
+function handleConfirmSubmit (cardElement, cardId){
+  // const formConfirm = document.getElementById("formConfirm");
+  // const cardId = formConfirm.getAttribute("data-card-id");
   deleteCardApi(cardId)
     .then(() => {
       // Успешное удаление карточки, удалите карточку из интерфейса
-      const cardElement = document.querySelector(`.card[data-card-id="${cardId}"]`);
-      deleteCard(cardElement);
+      // const cardElement = document.querySelector(`.card[data-card-id="${cardId}"]`);
+      // deleteCard(cardElement);
+      cardElement.remove();
+      
       closeModal(confirmForm);
     })
     .catch((error) => {
@@ -203,11 +208,11 @@ editForm.addEventListener("submit", handleEditFormSubmit);
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
 
-confirmForm.addEventListener("submit", handleConfirmSubmit);
+// confirmForm.addEventListener("submit", handleConfirmSubmit);
 
 // Обновленная функция для создания карточки и её рендера
 function createCardAndRender(cardData,userData) {
-  const newCardElement = createCard(cardData, deleteCard , userData , function () {
+  const newCardElement = createCard(cardData, openDeleteConfirmationPopup , userData , function () {
     openImagePopup(cardData.link, cardData.name);
   }, toggleLike);
   placesList.prepend(newCardElement);
