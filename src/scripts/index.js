@@ -12,7 +12,7 @@ import {
   closeModal
 } from "./modal";
 
-import {getUser, getInitialCards, editUser, createNewCardApi} from "./api"
+import {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi} from "./api"
 
 // @todo: Темплейт карточки
 
@@ -20,6 +20,7 @@ import {getUser, getInitialCards, editUser, createNewCardApi} from "./api"
 const placesList = document.querySelector(".places__list");
 const newCardForm = document.querySelector(".popup_type_new-card")
 const editForm = document.querySelector(".popup_type_edit");
+const confirmForm = document.querySelector(".popup_type_confirm")
 const nameInput = editForm.querySelector(".popup__input_type_name");
 const jobInput = editForm.querySelector(".popup__input_type_description");
 
@@ -156,6 +157,35 @@ function openImagePopup(imageUrl, captionText) {
   openModal(imagePopup);
 }
 
+//попап подтверждения
+function openDeleteConfirmationPopup(cardId) {
+   //cardId в форме подтверждения для след использования
+  const formConfirm = document.getElementById("formConfirm");
+  formConfirm.setAttribute("data-card-id", cardId);
+
+  openModal(confirmForm);
+}
+
+//submit confirm
+function handleConfirmSubmit (evt){
+  evt.preventDefault();
+  const formConfirm = document.getElementById("formConfirm");
+  const cardId = formConfirm.getAttribute("data-card-id");
+  deleteCardApi(cardId)
+    .then(() => {
+      // Успешное удаление карточки, удалите карточку из интерфейса
+      const cardElement = document.querySelector(`.card[data-card-id="${cardId}"]`);
+      deleteCard(cardElement);
+      closeModal(confirmForm);
+    })
+    .catch((error) => {
+      console.error("Ошибка при удалении карточки:", error);
+      closeModal(confirmForm);
+    });
+}
+
+
+
 //вызов попапов
 document
   .querySelector(".profile__edit-button")
@@ -171,6 +201,9 @@ document
 editForm.addEventListener("submit", handleEditFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
+
+
+confirmForm.addEventListener("submit", handleConfirmSubmit);
 
 // Обновленная функция для создания карточки и её рендера
 function createCardAndRender(cardData,userData) {
@@ -204,4 +237,5 @@ export {
   newCardFormElement,
   cardNameInput,
   cardLinkInput,
+  openDeleteConfirmationPopup,
 };

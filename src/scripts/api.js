@@ -55,4 +55,4 @@ function deleteCardApi(cardId) {
 }
 
 
-export {getUser, getInitialCards, editUser, createNewCardApi};
+export {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi};

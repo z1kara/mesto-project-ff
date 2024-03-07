@@ -1,5 +1,7 @@
 
-
+import {
+  openDeleteConfirmationPopup
+} from "./index.js";
 // @todo: Функция создания карточки
 
 
@@ -26,13 +28,11 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
     updateLikeCount(likeCount, cardData.likes.length);
   });
 
-  console.log(userData._id);
-
   if (userData._id === cardData.owner._id){
     cardElement
       .querySelector(".card__delete-button")
-      .addEventListener("click", function (event) {
-        const currentCard = event.currentTarget.closest(".card");
+      .addEventListener("click", function () {
+        openDeleteConfirmationPopup(cardData._id);
       });
   } else {
     // Если не владелец, скрываем иконку удаления
