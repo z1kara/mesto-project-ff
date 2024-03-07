@@ -28,12 +28,17 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
 
   console.log(userData._id);
 
-  cardElement
-    .querySelector(".card__delete-button")
-    .addEventListener("click", function (event) {
-      const currentCard = event.currentTarget.closest(".card");
-      deleteCard(currentCard);
-    });
+  if (userData._id === cardData.owner._id){
+    cardElement
+      .querySelector(".card__delete-button")
+      .addEventListener("click", function (event) {
+        const currentCard = event.currentTarget.closest(".card");
+      });
+  } else {
+    // Если не владелец, скрываем иконку удаления
+    const deleteButton = cardElement.querySelector(".card__delete-button");
+    deleteButton.style.display = "none";
+  }
 
   updateLikeCount(likeCount, cardData.likes.length);
 
