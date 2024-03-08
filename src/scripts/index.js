@@ -1,6 +1,5 @@
 import "../pages/index.css";
 
-import { initialCards} from "./cards";
 
 import { createCard, toggleLike } from "./card"
 
