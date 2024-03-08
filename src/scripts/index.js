@@ -219,6 +219,8 @@ document
 document
   .querySelector(".profile__add-button")
   .addEventListener("click", function () {
+    cardNameInput.value = '';
+    cardLinkInput.value = '';
     openModal(newCardForm);
     clearValidation(newCardForm, validationConfig);
   });
