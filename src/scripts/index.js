@@ -82,6 +82,10 @@ function handleEditFormSubmit(evt) {
 
   const newName = nameInput.value;
   const newJob = jobInput.value;
+
+  const saveButton = editForm.querySelector('.popup__button');
+  saveButton.textContent = 'Сохранение...';
+
   editUser({
     name: newName,
     about: newJob,
@@ -95,9 +99,11 @@ function handleEditFormSubmit(evt) {
       profileDescription.textContent = userData.about;
 
       closeModal(editForm);
+      saveButton.textContent = 'Сохранить';
     })
     .catch((error) => {
       console.error("Ошибка при обновлении user data:", error);
+      saveButton.textContent = 'Сохранить';
     });
   
 }
@@ -128,6 +134,9 @@ function handleNewCardSubmit(evt) {
   const cardName = cardNameInput.value;
   const cardLink = cardLinkInput.value;
 
+  const saveButton = newCardForm.querySelector('.popup__button');
+  saveButton.textContent = 'Сохранение...';
+
   const newCardData = {
     name: cardName,
     link: cardLink,
@@ -142,9 +151,12 @@ function handleNewCardSubmit(evt) {
       newCardFormElement.reset();
       clearValidation(newCardFormElement);
       closeModal(newCardForm);
+
+      saveButton.textContent = 'Сохранить';
     })
     .catch((error) => {
       console.error("Ошибка при создании новой карточки:", error);
+      saveButton.textContent = 'Сохранить';
     });
 }
 
@@ -199,15 +211,22 @@ editAvatarForm.addEventListener("submit", function (evt){
   evt.preventDefault();
   const avatarLinkInput = editAvatarForm.querySelector('.popup__input_type_url');
   const newAvatarLink = avatarLinkInput.value;
+
+  const saveButton = editAvatarForm.querySelector('.popup__button');
+  saveButton.textContent = 'Сохранение...';
+
   editAvatar(newAvatarLink)
   .then(() => {
     
     profileAvatar.style = `background-image: url('${newAvatarLink}');`
 
     closeModal(document.querySelector('.popup_edit_avatar'));
+
+    saveButton.textContent = 'Сохранить';
   })
   .catch((error) => {
     console.error('Ошибка при обновлении аватара:', error);
+    saveButton.textContent = 'Сохранить';
   });
 });
 
