@@ -230,6 +230,8 @@ newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
 document.querySelector('.profile__avatar_container').addEventListener('click', function () {
   openModal(editAvatarForm);
+  const avatarLinkInput = document.querySelector('.popup_edit_avatar .popup__input_type_url');
+  avatarLinkInput.value = '';
   clearValidation(editAvatarForm, validationConfig);
 });
 
