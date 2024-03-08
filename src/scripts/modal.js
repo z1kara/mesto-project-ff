@@ -1,16 +1,3 @@
-import {
-  nameInput,
-  jobInput,
-  newCardFormElement,
-  cardNameInput,
-  cardLinkInput,
-  placesList,
-} from "./index.js";
-
-import { createCard, deleteCard } from "./card.js";
-
-import { clearValidation } from "./validation";
-
 // Общая функция для открытия попапа
 function openModal(popupElement) {
   popupElement.classList.add("popup_is-opened");
@@ -18,10 +5,6 @@ function openModal(popupElement) {
   popupElement.addEventListener("click", closePopupByOverlay);
 
   document.addEventListener("keydown", closePopupByEsc);
-  
-  if (!popupElement.classList.contains("popup_type_image") && !popupElement.classList.contains("popup_type_confirm")) {
-    clearValidation(popupElement.querySelector('.popup__form'));
-  }
 }
 
 // Общая функция для закрытия попапа
@@ -31,10 +14,6 @@ function closeModal(popupElement) {
   // Удаляем обработчики событий
   popupElement.removeEventListener("click", closePopupByOverlay);
   document.removeEventListener("keydown", closePopupByEsc);
-
-  if (popupElement.querySelector('.popup__form')) {
-    clearValidation(popupElement.querySelector('.popup__form'));
-  }
 }
 
 function closePopupByOverlay(event) {

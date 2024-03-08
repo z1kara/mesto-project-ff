@@ -88,10 +88,10 @@ function toggleLike(likeButton) {
 }
 
 
+// Функция удаления карточки
+function deleteCard(cardElement, cardId) {
+  cardElement.remove();
+}
 
-// // @todo: Функция удаления карточки
-// function deleteCard(cardElement) {
-//   cardElement.remove();
-// }
 
-export { createCard, toggleLike };
+export { createCard, toggleLike};

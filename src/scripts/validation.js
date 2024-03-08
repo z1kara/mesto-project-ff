@@ -45,10 +45,16 @@ function checkInputValidity(input) {
     }
   }
 
+  if (input.name === 'avatar-link' && !input.validity.valid) {
+    showError(input, 'Введите корректный URL');
+    return false;
+  }
+
   if (input.name === 'link' && !input.validity.valid) {
     showError(input, 'Введите корректный URL');
     return false;
   }
+
 
   hideError(input);
   return true;
@@ -92,19 +98,15 @@ function enableValidation(validationConfig) {
   });
 }
 
-function clearValidation(form) {
-  const inputs = Array.from(form.querySelectorAll('.popup__input'));
-  const submitButton = form.querySelector('.popup__button');
+function clearValidation(form, validationConfig) {
+  const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector));
+  const submitButton = form.querySelector(validationConfig.submitButtonSelector);
 
   inputs.forEach((input) => {
     hideError(input);
   });
 
   toggleButtonState(form, submitButton, false);
-
-  // Сброс состояния валидации формы 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!! нужно сделать ресет только для формы новой карточки 
-  // form.reset();
 }
 
 export {
