@@ -14,7 +14,7 @@ function checkResponse(res) {
 }
 
 
-function getUser (){
+const getUser = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
@@ -37,7 +37,7 @@ const editUser = (data) =>{
   .then(checkResponse)
 };
 
-function createNewCardApi (CardData){
+const createNewCardApi = (CardData) =>{
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -46,7 +46,7 @@ function createNewCardApi (CardData){
   .then(checkResponse);
 }
 
-function deleteCardApi(cardId) {
+const deleteCardApi = (cardId) =>{
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
@@ -54,7 +54,7 @@ function deleteCardApi(cardId) {
   .then(checkResponse);
 }
 
-function putLike (cardId){
+const putLike = (cardId) =>{
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
   method: "PUT",
   headers: config.headers,
@@ -62,7 +62,7 @@ function putLike (cardId){
 .then(checkResponse);
 }
 
-function deleteLike (cardId){
+const deleteLike = (cardId) =>{
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
   method: "DELETE",
   headers: config.headers,
