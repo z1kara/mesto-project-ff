@@ -10,9 +10,13 @@ function showError(input, errorMessage) {
 }
 
 function hideError(input) {
-  const errorElement = document.querySelector(`#${input.name}-error`);
-  errorElement.textContent = '';
-  errorElement.classList.remove('popup__error_visible');
+  if (input) {
+    const errorElement = document.querySelector(`#${input.name}-error`);
+    if (errorElement) {
+      errorElement.textContent = '';
+      errorElement.classList.remove('popup__error_visible');
+    }
+  }
 }
 
 function checkInputValidity(input) {

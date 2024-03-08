@@ -70,15 +70,15 @@ function deleteLike (cardId){
 .then(checkResponse);
 }
 
-const editAvatar  = (avatar) => {
+const editAvatar  = (avatarImg) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
-    body: JSON.stringify(avatar)
+    body: JSON.stringify({avatar:avatarImg})
   })
   .then(checkResponse);
 }
 
 
 
-export {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi, putLike, deleteLike};
+export {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi, putLike, deleteLike, editAvatar};

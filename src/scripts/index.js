@@ -12,7 +12,7 @@ import {
   closeModal
 } from "./modal";
 
-import {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi} from "./api"
+import {getUser, getInitialCards, editUser, createNewCardApi, deleteCardApi, editAvatar} from "./api"
 
 // @todo: Темплейт карточки
 
@@ -21,8 +21,12 @@ const placesList = document.querySelector(".places__list");
 const newCardForm = document.querySelector(".popup_type_new-card")
 const editForm = document.querySelector(".popup_type_edit");
 const confirmForm = document.querySelector(".popup_type_confirm")
+const editAvatarForm = document.querySelector(".popup_edit_avatar");
 const nameInput = editForm.querySelector(".popup__input_type_name");
 const jobInput = editForm.querySelector(".popup__input_type_description");
+
+//avatar
+const profileAvatar = document.querySelector(".profile__image")
 
 //dom для новой карточки
 const newCardFormElement = document.querySelector(
@@ -190,6 +194,23 @@ function handleConfirmSubmit (cardElement, cardId){
 }
 
 
+//попап аватарки
+editAvatarForm.addEventListener("submit", function (evt){
+  evt.preventDefault();
+  const avatarLinkInput = editAvatarForm.querySelector('.popup__input_type_url');
+  const newAvatarLink = avatarLinkInput.value;
+  editAvatar(newAvatarLink)
+  .then(() => {
+    
+    profileAvatar.style = `background-image: url('${newAvatarLink}');`
+
+    closeModal(document.querySelector('.popup_edit_avatar'));
+  })
+  .catch((error) => {
+    console.error('Ошибка при обновлении аватара:', error);
+  });
+});
+
 
 //вызов попапов
 document
@@ -207,6 +228,9 @@ editForm.addEventListener("submit", handleEditFormSubmit);
 
 newCardFormElement.addEventListener("submit", handleNewCardSubmit);
 
+document.querySelector('.profile__avatar_container').addEventListener('click', function () {
+  openModal(document.querySelector('.popup_edit_avatar'));
+});
 
 // confirmForm.addEventListener("submit", handleConfirmSubmit);
 
@@ -225,6 +249,7 @@ Promise.all([getUser(), getInitialCards()])
     const profileDescription = document.querySelector(".profile__description");
     profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
+    profileAvatar.style = `background-image: url('${userData.avatar}');`;
 
     // Рендерим начальные карточки нужно в реверсе чтобы отображалась моя 1 после обновления страницы
     initialCardsData.reverse().forEach((card) => {
