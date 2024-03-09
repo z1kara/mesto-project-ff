@@ -10,7 +10,7 @@ function openModal(popupElement) {
 // Общая функция для закрытия попапа
 function closeModal(popupElement) {
   popupElement.classList.remove("popup_is-opened");
-  
+
   // Удаляем обработчики событий
   popupElement.removeEventListener("click", closePopupByOverlay);
   document.removeEventListener("keydown", closePopupByEsc);
@@ -30,7 +30,4 @@ function closePopupByEsc(event) {
   }
 }
 
-export {
-  openModal,
-  closeModal
-};
+export { openModal, closeModal };

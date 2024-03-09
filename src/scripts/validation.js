@@ -6,55 +6,61 @@ function inputpattern(str) {
 function showError(input, errorMessage) {
   const errorElement = document.querySelector(`#${input.name}-error`);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__error_visible');
+  errorElement.classList.add("popup__error_visible");
 }
 
 function hideError(input) {
   if (input) {
     const errorElement = document.querySelector(`#${input.name}-error`);
     if (errorElement) {
-      errorElement.textContent = '';
-      errorElement.classList.remove('popup__error_visible');
+      errorElement.textContent = "";
+      errorElement.classList.remove("popup__error_visible");
     }
   }
 }
 
 function checkInputValidity(input) {
   if (input.validity.valueMissing) {
-    showError(input, 'Это обязательное поле');
+    showError(input, "Это обязательное поле");
     return false;
   }
 
   if (input.validity.tooShort || input.validity.tooLong) {
     let errorMessage;
-    if (input.name === 'name') {
-      errorMessage = 'Должно быть от 2 до 40 символов';
-    } else if (input.name === 'description') {
-      errorMessage = 'Должно быть от 2 до 200 символов';
-    } else if (input.name === 'place-name') {
-      errorMessage = 'Должно быть от 2 до 30 символов';
+    if (input.name === "name") {
+      errorMessage = "Должно быть от 2 до 40 символов";
+    } else if (input.name === "description") {
+      errorMessage = "Должно быть от 2 до 200 символов";
+    } else if (input.name === "place-name") {
+      errorMessage = "Должно быть от 2 до 30 символов";
     }
     showError(input, errorMessage);
     return false;
   }
 
-  if (input.name === 'name' || input.name === 'description' || input.name === 'place-name') {
+  if (
+    input.name === "name" ||
+    input.name === "description" ||
+    input.name === "place-name"
+  ) {
     if (!inputpattern(input.value)) {
-      showError(input, 'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
+      showError(
+        input,
+        "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+      );
       return false;
     }
   }
 
-  if (input.name === 'avatar-link' && !input.validity.valid) {
-    showError(input, 'Введите корректный URL');
+  if (input.name === "avatar-link" && !input.validity.valid) {
+    showError(input, "Введите корректный URL");
     return false;
   }
 
-  if (input.name === 'link' && !input.validity.valid) {
-    showError(input, 'Введите корректный URL');
+  if (input.name === "link" && !input.validity.valid) {
+    showError(input, "Введите корректный URL");
     return false;
   }
-
 
   hideError(input);
   return true;
@@ -62,35 +68,41 @@ function checkInputValidity(input) {
 
 function toggleButtonState(form, button, isValid) {
   if (isValid) {
-    button.removeAttribute('disabled');
-    button.classList.remove('popup__button_disabled');
+    button.removeAttribute("disabled");
+    button.classList.remove("popup__button_disabled");
   } else {
-    button.setAttribute('disabled', true);
-    button.classList.add('popup__button_disabled');
+    button.setAttribute("disabled", true);
+    button.classList.add("popup__button_disabled");
   }
 }
 
 function setEventListeners(form, validationConfig) {
-  const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector));
-  const submitButton = form.querySelector(validationConfig.submitButtonSelector);
+  const inputs = Array.from(
+    form.querySelectorAll(validationConfig.inputSelector)
+  );
+  const submitButton = form.querySelector(
+    validationConfig.submitButtonSelector
+  );
 
   inputs.forEach((input) => {
-    input.addEventListener('input', () => {
+    input.addEventListener("input", () => {
       const isValid = checkInputValidity(input);
       toggleButtonState(form, submitButton, form.checkValidity());
     });
   });
 
-  form.addEventListener('submit', (evt) => {
+  form.addEventListener("submit", (evt) => {
     evt.preventDefault();
     clearValidation(form, validationConfig);
   });
 }
 
 function enableValidation(validationConfig) {
-  const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  const forms = Array.from(
+    document.querySelectorAll(validationConfig.formSelector)
+  );
   forms.forEach((form) => {
-    form.addEventListener('submit', (evt) => {
+    form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       clearValidation(form, validationConfig);
     });
@@ -99,8 +111,12 @@ function enableValidation(validationConfig) {
 }
 
 function clearValidation(form, validationConfig) {
-  const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector));
-  const submitButton = form.querySelector(validationConfig.submitButtonSelector);
+  const inputs = Array.from(
+    form.querySelectorAll(validationConfig.inputSelector)
+  );
+  const submitButton = form.querySelector(
+    validationConfig.submitButtonSelector
+  );
 
   inputs.forEach((input) => {
     hideError(input);
@@ -109,7 +125,4 @@ function clearValidation(form, validationConfig) {
   toggleButtonState(form, submitButton, false);
 }
 
-export {
-  enableValidation,
-  clearValidation
-};
+export { enableValidation, clearValidation };

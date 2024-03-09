@@ -1,15 +1,13 @@
-
-import {
-  openDeleteConfirmationPopup
-} from "./index.js";
-
-import {
-  putLike, deleteLike
-} from "./api.js";
+import { putLike, deleteLike } from "./api.js";
 // @todo: Функция создания карточки
 
-
-function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike) {
+function createCard(
+  cardData,
+  deleteCard,
+  userData,
+  openImagePopup,
+  toggleLike
+) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -36,7 +34,9 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
   likeButton.addEventListener("click", function () {
     toggleLike(likeButton);
 
-    const isLiked = likeButton.classList.contains("card__like-button_is-active");
+    const isLiked = likeButton.classList.contains(
+      "card__like-button_is-active"
+    );
     updateLikeCount(likeCount, cardData.likes.length);
 
     if (isLiked) {
@@ -58,21 +58,17 @@ function createCard(cardData, deleteCard, userData , openImagePopup, toggleLike)
     }
   });
 
-
-  if (userData._id === cardData.owner._id){
-    const cardElement = deleteButton.closest(".card")
+  if (userData._id === cardData.owner._id) {
+    const cardElement = deleteButton.closest(".card");
     deleteButton.addEventListener("click", handleDeleteCard);
-      // .addEventListener("click", function () {
-      //   openDeleteConfirmationPopup(cardData._id);
-      // });
   } else {
     // Если не владелец, скрываем иконку удаления
     deleteButton.remove();
   }
 
-  function handleDeleteCard (){
-    const cardElement = deleteButton.closest(".card")
-    deleteCard(cardElement, cardData._id)
+  function handleDeleteCard() {
+    const cardElement = deleteButton.closest(".card");
+    deleteCard(cardElement, cardData._id);
   }
 
   updateLikeCount(likeCount, cardData.likes.length);
@@ -85,16 +81,13 @@ function updateLikeCount(likeCountElement, count) {
   likeCountElement.textContent = count.toString();
 }
 
-
 function toggleLike(likeButton) {
   likeButton.classList.toggle("card__like-button_is-active");
 }
-
 
 // Функция удаления карточки
 function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-
-export { createCard, toggleLike, deleteCard};
+export { createCard, toggleLike, deleteCard };
