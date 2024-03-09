@@ -1,108 +1,106 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__error',
+  errorClass: 'popup__error_visible'
+};
+
 function inputpattern(str) {
   const pattern = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
   return pattern.test(str);
 }
 
-function showError(input, errorMessage) {
-  const errorElement = document.querySelector(`#${input.name}-error`);
+function showError(input, errorMessage, validationConfig) {
+  const errorElement = document.getElementById(`${input.name}-error`);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__error_visible");
+  errorElement.classList.add(validationConfig.errorClass);
 }
 
-function hideError(input) {
-  if (input) {
-    const errorElement = document.querySelector(`#${input.name}-error`);
+function hideError(input, validationConfig) {
+  const formElement = input.closest(validationConfig.formSelector);
+  if (formElement) {
+    const errorElement = document.getElementById(`${input.name}-error`);
     if (errorElement) {
-      errorElement.textContent = "";
-      errorElement.classList.remove("popup__error_visible");
+      errorElement.textContent = '';
+      errorElement.classList.remove(validationConfig.errorClass);
     }
   }
 }
 
-function checkInputValidity(input) {
+
+function checkInputValidity(input, validationConfig) {
   if (input.validity.valueMissing) {
-    showError(input, "Это обязательное поле");
+    showError(input, 'Это обязательное поле', validationConfig);
     return false;
   }
 
   if (input.validity.tooShort || input.validity.tooLong) {
     let errorMessage;
-    if (input.name === "name") {
-      errorMessage = "Должно быть от 2 до 40 символов";
-    } else if (input.name === "description") {
-      errorMessage = "Должно быть от 2 до 200 символов";
-    } else if (input.name === "place-name") {
-      errorMessage = "Должно быть от 2 до 30 символов";
+    if (input.name === 'name') {
+      errorMessage = 'Должно быть от 2 до 40 символов';
+    } else if (input.name === 'description') {
+      errorMessage = 'Должно быть от 2 до 200 символов';
+    } else if (input.name === 'place-name') {
+      errorMessage = 'Должно быть от 2 до 30 символов';
     }
-    showError(input, errorMessage);
+    showError(input, errorMessage, validationConfig);
     return false;
   }
 
-  if (
-    input.name === "name" ||
-    input.name === "description" ||
-    input.name === "place-name"
-  ) {
+  if (input.name === 'name' || input.name === 'description' || input.name === 'place-name') {
     if (!inputpattern(input.value)) {
-      showError(
-        input,
-        "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-      );
+      showError(input, 'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы', validationConfig);
       return false;
     }
   }
 
-  if (input.name === "avatar-link" && !input.validity.valid) {
-    showError(input, "Введите корректный URL");
+  if (input.name === 'avatar-link' && !input.validity.valid) {
+    showError(input, 'Введите корректный URL', validationConfig);
     return false;
   }
 
-  if (input.name === "link" && !input.validity.valid) {
-    showError(input, "Введите корректный URL");
+  if (input.name === 'link' && !input.validity.valid) {
+    showError(input, 'Введите корректный URL', validationConfig);
     return false;
   }
 
-  hideError(input);
+  hideError(input, validationConfig);
   return true;
 }
 
 function toggleButtonState(form, button, isValid) {
+  button.disabled = !isValid;
+  
   if (isValid) {
-    button.removeAttribute("disabled");
     button.classList.remove("popup__button_disabled");
   } else {
-    button.setAttribute("disabled", true);
     button.classList.add("popup__button_disabled");
   }
 }
 
 function setEventListeners(form, validationConfig) {
-  const inputs = Array.from(
-    form.querySelectorAll(validationConfig.inputSelector)
-  );
-  const submitButton = form.querySelector(
-    validationConfig.submitButtonSelector
-  );
+  const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector));
+  const submitButton = form.querySelector(validationConfig.submitButtonSelector);
 
   inputs.forEach((input) => {
-    input.addEventListener("input", () => {
-      const isValid = checkInputValidity(input);
-      toggleButtonState(form, submitButton, form.checkValidity());
+    input.addEventListener('input', () => {
+      const isValid = checkInputValidity(input, validationConfig);
+      toggleButtonState(form, submitButton, form.checkValidity(), validationConfig);
     });
   });
 
-  form.addEventListener("submit", (evt) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     clearValidation(form, validationConfig);
   });
 }
 
 function enableValidation(validationConfig) {
-  const forms = Array.from(
-    document.querySelectorAll(validationConfig.formSelector)
-  );
+  const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
   forms.forEach((form) => {
-    form.addEventListener("submit", (evt) => {
+    form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       clearValidation(form, validationConfig);
     });
@@ -111,18 +109,18 @@ function enableValidation(validationConfig) {
 }
 
 function clearValidation(form, validationConfig) {
-  const inputs = Array.from(
-    form.querySelectorAll(validationConfig.inputSelector)
-  );
-  const submitButton = form.querySelector(
-    validationConfig.submitButtonSelector
-  );
+  const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector));
+  const submitButton = form.querySelector(validationConfig.submitButtonSelector);
 
   inputs.forEach((input) => {
-    hideError(input);
+    hideError(input, validationConfig); 
   });
 
-  toggleButtonState(form, submitButton, false);
+  toggleButtonState(form, submitButton, false, validationConfig); 
 }
 
-export { enableValidation, clearValidation };
+export {
+  enableValidation,
+  clearValidation,
+  validationConfig,
+};

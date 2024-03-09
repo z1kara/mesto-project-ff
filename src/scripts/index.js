@@ -2,7 +2,7 @@ import "../pages/index.css";
 
 import { createCard, toggleLike, deleteCard } from "./card";
 
-import { enableValidation, clearValidation } from "./validation";
+import { enableValidation, clearValidation, validationConfig } from "./validation";
 
 import { openModal, closeModal } from "./modal";
 
@@ -41,15 +41,6 @@ const cardNameInput = newCardFormElement.querySelector(
 const cardLinkInput = newCardFormElement.querySelector(
   ".popup__input_type_url"
 );
-
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__error",
-  errorClass: "popup__error_visible",
-};
 
 enableValidation(validationConfig);
 
