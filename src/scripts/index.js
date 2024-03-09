@@ -83,7 +83,11 @@ function handleEditFormSubmit(evt) {
   const newJob = jobInput.value;
 
   const saveButton = formEditProfile.querySelector('.popup__button');
-  saveButton.textContent = 'Сохранение...';
+  // saveButton.classList.add("button__saving");
+  saveButton.removeAttribute('disabled');
+  saveButton.classList.remove('popup__button_disabled');
+  saveButton.textContent = 'Сохранение................';
+  
 
   editUser({
     name: newName,
@@ -115,7 +119,9 @@ function handleNewCardSubmit(evt) {
   const cardLink = cardLinkInput.value;
 
   const saveButton = newCardForm.querySelector('.popup__button');
-  saveButton.textContent = 'Сохранение...';
+  saveButton.removeAttribute('disabled');
+  saveButton.classList.remove('popup__button_disabled');
+  saveButton.textContent = 'Сохранение................';
 
   const newCardData = {
     name: cardName,
@@ -190,7 +196,9 @@ editAvatarForm.addEventListener("submit", function (evt){
   const newAvatarLink = avatarLinkInput.value;
 
   const saveButton = editAvatarForm.querySelector('.popup__button');
-  saveButton.textContent = 'Сохранение...';
+  saveButton.removeAttribute('disabled');
+  saveButton.classList.remove('popup__button_disabled');
+  saveButton.textContent = 'Сохранение................';
 
   editAvatar(newAvatarLink)
   .then(() => {
