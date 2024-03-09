@@ -1,7 +1,7 @@
 import "../pages/index.css";
 
 
-import { createCard, toggleLike } from "./card"
+import { createCard, toggleLike, deleteCard } from "./card"
 
 import { enableValidation, clearValidation } from "./validation";
 
@@ -175,7 +175,7 @@ function handleConfirmSubmit (cardElement, cardId){
       // Успешное удаление карточки, удалите карточку из интерфейса
       // const cardElement = document.querySelector(`.card[data-card-id="${cardId}"]`);
       // deleteCard(cardElement);
-      cardElement.remove();
+      deleteCard(cardElement)
       
       closeModal(confirmForm);
     })
