@@ -97,11 +97,11 @@ function checkInputValidity(input, validationConfig) {
 }
 
 function toggleButtonState(form, button, isValid, validationConfig) {
+  button.disabled = !isValid; 
+  
   if (isValid) {
-    button.removeAttribute('disabled');
     button.classList.remove(validationConfig.inactiveButtonClass);
   } else {
-    button.setAttribute('disabled', true);
     button.classList.add(validationConfig.inactiveButtonClass);
   }
 }
